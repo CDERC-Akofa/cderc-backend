@@ -1,4 +1,8 @@
 package com.cderc.backend.repository;
 
-public interface OrganizationRepository {
+import com.cderc.backend.model.Organization;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrganizationRepository extends JpaRepository<Organization, Long> {
+
 }
