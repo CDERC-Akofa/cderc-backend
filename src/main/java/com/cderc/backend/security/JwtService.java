@@ -3,6 +3,7 @@ package com.cderc.backend.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 
@@ -30,5 +31,10 @@ public class JwtService {
                 .build()
                 .verify(token)
                 .getSubject();
+    }
+    // Token validieren
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String email = extractEmail(token);
+        return email.equals(userDetails.getUsername());
     }
 }
