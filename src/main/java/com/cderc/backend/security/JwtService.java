@@ -10,9 +10,13 @@ import java.util.Date;
 @Service
 public class JwtService {
     // Hier wird der Wert aus Railway Environment Variable geholt
-    @Value("${JWT_SECRET}")
+
     //private String SECRET = "cderc_secret_key";
     private String secret;
+
+    public JwtService(@Value("${JWT_SECRET}") String secret) {
+        this.secret = secret;
+    }
 
     public String generateToken(String email) {
 
