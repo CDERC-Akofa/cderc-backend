@@ -9,15 +9,12 @@ import java.util.Date;
 
 @Service
 public class JwtService {
-    // Hier wird der Wert aus Railway Environment Variable geholt
-
-    //private String SECRET = "cderc_secret_key";
     private String secret;
 
     public JwtService(@Value("${JWT_SECRET}") String secret) {
         this.secret = secret;
     }
-
+    // Token generieren
     public String generateToken(String email) {
 
         return JWT.create()
@@ -26,6 +23,7 @@ public class JwtService {
                 .withExpiresAt(new Date(System.currentTimeMillis() + 86400000))
                 .sign(Algorithm.HMAC256(secret));
     }
+    // Email aus Token extrahieren
     public String extractEmail(String token) {
 
         return JWT.require(Algorithm.HMAC256(secret))
