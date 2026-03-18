@@ -45,11 +45,11 @@ public class AuthService {
 //
        userRepository.save(user);
 //
-//        String token = jwtService.generateToken(user.getEmail());
+       String token = jwtService.generateToken(user.getEmail());
 //
-//        return new AuthResponse(token);
+       return new AuthResponse(token);
 
-        return new AuthResponse("saved");
+//        return new AuthResponse("saved");
     }
 
     public AuthResponse login(LoginRequest request) {
