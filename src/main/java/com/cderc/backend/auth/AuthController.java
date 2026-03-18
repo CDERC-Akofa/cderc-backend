@@ -6,6 +6,7 @@ import com.cderc.backend.dto.RegisterRequest;
 import com.cderc.backend.model.User;
 import com.cderc.backend.repository.UserRepository;
 import com.cderc.backend.security.JwtService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class AuthController {
 
     private final AuthService authService;
 
-
+    @Operation(summary = "Register a new user")
     @PostMapping("/register")
     public AuthResponse register(@RequestBody RegisterRequest request) {
         System.out.println("REGISTER ENDPOINT CALLED");
