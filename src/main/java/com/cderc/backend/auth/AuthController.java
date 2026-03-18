@@ -6,20 +6,18 @@ import com.cderc.backend.dto.RegisterRequest;
 import com.cderc.backend.model.User;
 import com.cderc.backend.repository.UserRepository;
 import com.cderc.backend.security.JwtService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 @CrossOrigin
 public class AuthController {
 
     private final AuthService authService;
 
-
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
 
     @PostMapping("/register")
     public AuthResponse register(@RequestBody RegisterRequest request) {
