@@ -39,13 +39,11 @@ public class AuthService {
        User user = new User();
 //        user.setName(request.getName());
        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
-        userRepository.save(user);
-//        user.setPassword(passwordEncoder.encode(request.getPassword()));
+       user.setPassword(passwordEncoder.encode(request.getPassword()));
 //        user.setRole(request.getRole());
 //        user.setOrganization(org);
 //
-//        userRepository.save(user);
+       userRepository.save(user);
 //
 //        String token = jwtService.generateToken(user.getEmail());
 //
