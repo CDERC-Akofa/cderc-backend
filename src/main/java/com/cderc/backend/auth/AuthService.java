@@ -31,21 +31,24 @@ public class AuthService {
 
     public AuthResponse register(RegisterRequest request) {
 
-        Organization org = organizationRepository.findById(request.getOrganizationId())
-                .orElseThrow();
+//        Organization org = organizationRepository.findById(request.getOrganizationId())
+//                .orElseThrow();
+//
+//        User user = new User();
+//        user.setName(request.getName());
+//        user.setEmail(request.getEmail());
+//        user.setPassword(passwordEncoder.encode(request.getPassword()));
+//        user.setRole(request.getRole());
+//        user.setOrganization(org);
+//
+//        userRepository.save(user);
+//
+//        String token = jwtService.generateToken(user.getEmail());
+//
+//        return new AuthResponse(token);
+        System.out.println("SERVICE REGISTER");
 
-        User user = new User();
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(request.getRole());
-        user.setOrganization(org);
-
-        userRepository.save(user);
-
-        String token = jwtService.generateToken(user.getEmail());
-
-        return new AuthResponse(token);
+        return new AuthResponse("test-token");
     }
 
     public AuthResponse login(LoginRequest request) {
