@@ -31,12 +31,16 @@ public class AuthService {
 
     public AuthResponse register(RegisterRequest request) {
 
+
+        System.out.println("SERVICE REGISTER");
 //        Organization org = organizationRepository.findById(request.getOrganizationId())
 //                .orElseThrow();
 //
-//        User user = new User();
+       User user = new User();
 //        user.setName(request.getName());
-//        user.setEmail(request.getEmail());
+       user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        userRepository.save(user);
 //        user.setPassword(passwordEncoder.encode(request.getPassword()));
 //        user.setRole(request.getRole());
 //        user.setOrganization(org);
@@ -46,9 +50,8 @@ public class AuthService {
 //        String token = jwtService.generateToken(user.getEmail());
 //
 //        return new AuthResponse(token);
-        System.out.println("SERVICE REGISTER");
 
-        return new AuthResponse("test-token");
+        return new AuthResponse("saved");
     }
 
     public AuthResponse login(LoginRequest request) {
