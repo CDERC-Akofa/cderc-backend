@@ -97,7 +97,6 @@ public class SecurityConfig {
 //    }
 
     private final JwtAuthenticationFilter jwtAuthFilter;
-//    private final AuthenticationProvider authenticationProvider;
     private final CustomUserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
