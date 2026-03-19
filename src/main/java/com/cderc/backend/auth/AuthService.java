@@ -4,6 +4,7 @@ import com.cderc.backend.dto.AuthResponse;
 import com.cderc.backend.dto.LoginRequest;
 import com.cderc.backend.dto.RegisterRequest;
 import com.cderc.backend.model.Organization;
+import com.cderc.backend.model.Role;
 import com.cderc.backend.model.User;
 import com.cderc.backend.repository.OrganizationRepository;
 import com.cderc.backend.repository.UserRepository;
@@ -37,12 +38,13 @@ public class AuthService {
 //                .orElseThrow();
 //
        User user = new User();
-//        user.setName(request.getName());
+       user.setName(request.getName());
        user.setEmail(request.getEmail());
        user.setPassword(passwordEncoder.encode(request.getPassword()));
 //        user.setRole(request.getRole());
 //        user.setOrganization(org);
-//
+//  // ✅ Hier setzen wir die Standard-Rolle
+        user.setRole(Role.USER);
        userRepository.save(user);
 //
        String token = jwtService.generateToken(user.getEmail());

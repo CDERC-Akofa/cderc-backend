@@ -107,6 +107,11 @@ public class SecurityConfig {
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll() // frei für register/login
+                        // ADMIN only
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+                        // USER + ADMIN
+                        .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated() // alles andere geschützt
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

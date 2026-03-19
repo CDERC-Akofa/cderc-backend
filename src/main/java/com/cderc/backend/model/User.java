@@ -15,7 +15,8 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String role; // ADMIN, SOCIAL_WORKER, VOLUNTEER
+    @Enumerated(EnumType.STRING)
+    private Role role; // ADMIN, SOCIAL_WORKER, VOLUNTEER
 
     @ManyToOne
     @JoinColumn(name = "organization_id")
