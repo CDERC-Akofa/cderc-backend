@@ -34,15 +34,15 @@ public class AuthService {
 
 
         System.out.println("SERVICE REGISTER");
-       Organization org = organizationRepository.findById(request.getOrganizationId())
-                .orElseThrow();
+//       Organization org = organizationRepository.findById(request.getOrganizationId())
+//                .orElseThrow();
 //
        User user = new User();
        user.setName(request.getName());
        user.setEmail(request.getEmail());
        user.setPassword(passwordEncoder.encode(request.getPassword()));
        user.setRole(Role.valueOf(request.getRole()));
-        user.setOrganization(org);
+//       user.setOrganization(org);
 //  // ✅ Hier setzen wir die Standard-Rolle
    //     user.setRole(Role.USER);
        userRepository.save(user);
