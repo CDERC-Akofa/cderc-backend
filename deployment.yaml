@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cderc-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cderc
+  template:
+    metadata:
+      labels:
+        app: cderc
+    spec:
+      containers:
+        - name: backend
+          image: cderc-backend
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://host.docker.internal:5432/cderc_db"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "cderc_user"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "cderc_password"
+            - name: JWT_SECRET
+              value: "cderc_secret_key"
+            

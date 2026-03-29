@@ -34,24 +34,22 @@ public class AuthService {
 
 
         System.out.println("SERVICE REGISTER");
-//        Organization org = organizationRepository.findById(request.getOrganizationId())
-//                .orElseThrow();
+       Organization org = organizationRepository.findById(request.getOrganizationId())
+                .orElseThrow();
 //
        User user = new User();
        user.setName(request.getName());
        user.setEmail(request.getEmail());
        user.setPassword(passwordEncoder.encode(request.getPassword()));
-//        user.setRole(request.getRole());
-//        user.setOrganization(org);
+       user.setRole(Role.valueOf(request.getRole()));
+        user.setOrganization(org);
 //  // ✅ Hier setzen wir die Standard-Rolle
-        user.setRole(Role.USER);
+   //     user.setRole(Role.USER);
        userRepository.save(user);
 //
        String token = jwtService.generateToken(user.getEmail());
 //
        return new AuthResponse(token);
-
-//        return new AuthResponse("saved");
     }
 
     public AuthResponse login(LoginRequest request) {

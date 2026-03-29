@@ -12,6 +12,7 @@ import java.util.Date;
 public class JwtService {
     private String secret;
 
+//    private String secret = "cderc_secret_key"; // for local test
     public JwtService(@Value("${JWT_SECRET}") String secret) {
         this.secret = secret;
     }

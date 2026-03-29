@@ -112,6 +112,7 @@ public class SecurityConfig {
 
                         // USER + ADMIN
                         .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/children/**").hasAnyRole("ADMIN", "SOCIAL_WORKER")
                         .anyRequest().authenticated() // alles andere geschützt
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
