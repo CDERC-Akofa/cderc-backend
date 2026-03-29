@@ -19,7 +19,7 @@ public class ChildController {
     private ChildService childService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('SOCIAL_WORKER')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('SOCIAL_WORKER')")
     public Child createChild(@RequestBody Child child, Authentication authentication) {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         User user = userDetails.getUser();
