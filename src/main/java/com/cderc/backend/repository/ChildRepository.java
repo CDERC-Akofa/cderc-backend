@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ChildRepository extends JpaRepository<Child, Long> {
     List<Child> findAllByOrganizationId(Long organizationId);
-    List<Child> findByOrganizationId(Long organizationId);
+    Child findByIdAndOrganizationId(Long id, Long organizationId);
 }

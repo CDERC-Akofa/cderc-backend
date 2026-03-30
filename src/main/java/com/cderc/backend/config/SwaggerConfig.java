@@ -25,6 +25,6 @@ public class SwaggerConfig {
                                 .bearerFormat("JWT")
                         )
                 )
-                .info(new Info().title("CDERC API").version("1.0"));
+                .info(new Info().title("CDERC CSMS API").version("1.0"));
     }
 }

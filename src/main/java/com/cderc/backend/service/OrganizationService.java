@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrganizationService {
@@ -19,5 +20,9 @@ public class OrganizationService {
 
     public Organization createOrganization(Organization organization) {
         return organizationRepository.save(organization);
+    }
+
+    public Optional<Organization> findById(Long id ) {
+        return organizationRepository.findById(id);
     }
 }
