@@ -52,4 +52,30 @@ public class ChildController {
         // Nur Kinder der eigenen Organisation zurückgeben
         return childService.findByOrganizationId(user.getOrganization().getId());
     }
+    @GetMapping("/{id}")
+    public Child getChildById(@PathVariable Long id, Authentication authentication) {
+        String email = authentication.getName();
+        User user = userService.findByEmail(email);
+
+        return childService.findByIdAndOrganizationId(id, user.getOrganization().getId());
+    }
+
+    @PutMapping("/{id}")
+    public Child updateChild(@PathVariable Long id,
+                             @RequestBody Child child,
+                             Authentication authentication) {
+        String email = authentication.getName();
+        User user = userService.findByEmail(email);
+
+        return childService.updateChild(id, user.getOrganization().getId(), child);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteChild(@PathVariable Long id, Authentication authentication) {
+        String email = authentication.getName();
+        User user = userService.findByEmail(email);
+
+        childService.deleteChild(id, user.getOrganization().getId());
+    }
+
 }
