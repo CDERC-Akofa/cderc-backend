@@ -53,4 +53,8 @@ public class UserController {
         return userService.createUser(user);
     }
 
+    @GetMapping("/api/user/me")
+    public String me(Authentication authentication) {
+        return "name=" + authentication.getName() + ", authorities=" + authentication.getAuthorities();
+    }
 }
