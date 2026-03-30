@@ -26,8 +26,15 @@ public class ChildController {
     public Child createChild(@RequestBody Child child, Authentication authentication) {
 //        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 //        User user = userDetails.getUser();
+        System.out.println("CREATE CHILD CALLED");
+        System.out.println("AUTH NAME = " + authentication.getName());
+        System.out.println("AUTHORITIES = " + authentication.getAuthorities());
+
         String email = authentication.getName();
         User user = userService.findByEmail(email);
+
+        System.out.println("USER-MAIL = " + user.getEmail());
+        System.out.println("USER-ORG = " + user.getOrganization());
 
         child.setOrganization(user.getOrganization());
         return childService.createChild(child);
