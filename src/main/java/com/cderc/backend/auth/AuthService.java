@@ -30,27 +30,27 @@ public class AuthService {
         this.jwtService = jwtService;
     }
 
-    public AuthResponse register(RegisterRequest request) {
-
-
-        System.out.println("SERVICE REGISTER");
-//       Organization org = organizationRepository.findById(request.getOrganizationId())
-//                .orElseThrow();
+//    public AuthResponse register(RegisterRequest request) {
 //
-       User user = new User();
-       user.setName(request.getName());
-       user.setEmail(request.getEmail());
-       user.setPassword(passwordEncoder.encode(request.getPassword()));
-       user.setRole(Role.valueOf(request.getRole()));
-//       user.setOrganization(org);
-//  // ✅ Hier setzen wir die Standard-Rolle
-   //     user.setRole(Role.USER);
-       userRepository.save(user);
 //
-       String token = jwtService.generateToken(user.getEmail());
-//
-       return new AuthResponse(token);
-    }
+//        System.out.println("SERVICE REGISTER");
+////       Organization org = organizationRepository.findById(request.getOrganizationId())
+////                .orElseThrow();
+////
+//       User user = new User();
+//       user.setName(request.getName());
+//       user.setEmail(request.getEmail());
+//       user.setPassword(passwordEncoder.encode(request.getPassword()));
+//       user.setRole(Role.valueOf(request.getRole()));
+////       user.setOrganization(org);
+////  // ✅ Hier setzen wir die Standard-Rolle
+//   //     user.setRole(Role.USER);
+//       userRepository.save(user);
+////
+//       String token = jwtService.generateToken(user.getEmail());
+////
+//       return new AuthResponse(token);
+//    }
 
     public AuthResponse login(LoginRequest request) {
 

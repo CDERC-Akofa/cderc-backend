@@ -17,7 +17,9 @@ public class SwaggerConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 // .servers(List.of(new Server().url("http://localhost:8080"))) // Lokaler Test, für Railway URL ändern
-                .servers(List.of(new Server().url("https://cderc-backend-production.up.railway.app/"))) // Railway URL ändern
+             //   .servers(List.of(new Server().url("https://cderc-backend-production.up.railway.app/"))) // Railway URL ändern
+                .servers(List.of(new Server().url("http://localhost:30007"),
+                                 new Server().url("http://localhost:8080").description("Local Spring Boot")) )// // Kubernetes NodePort
                 .components(new Components()
                         .addSecuritySchemes("BearerAuth", new SecurityScheme()
                                 .type(SecurityScheme.Type.HTTP)

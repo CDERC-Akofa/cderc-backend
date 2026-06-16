@@ -1,6 +1,9 @@
 package com.cderc.backend.model;
 
 public enum Role {
-    USER,
-    ADMIN
+    SUPER_ADMIN,
+    ADMIN,
+    SOCIAL_WORKER,
+    VOLUNTEER,
+    USER
 }

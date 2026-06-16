@@ -1,5 +1,6 @@
 package com.cderc.backend.security;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.cderc.backend.model.User;
@@ -7,15 +8,12 @@ import com.cderc.backend.model.User;
 import java.util.Collection;
 import java.util.List;
 
+@Getter
 public class CustomUserDetails implements UserDetails {
     private final User user;
 
     public CustomUserDetails(User user) {
         this.user = user;
-    }
-
-    public User getUser() {
-        return user;
     }
 
     @Override

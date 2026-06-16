@@ -36,16 +36,28 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll() // frei für register/login
-                        // ADMIN only
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/auth/login", "/swagger-ui/**", "/v3/api-docs/**").permitAll() // frei für register/login
+
+                        .requestMatchers("/api/super-admin/**")
+                        .hasRole("SUPER_ADMIN")
+                        .requestMatchers("/api/admin/**")
+                        .hasAnyRole("SUPER_ADMIN", "ADMIN")
+                        .requestMatchers("/api/admin/members/**")
+                        .hasAnyRole("SUPER_ADMIN", "ADMIN")
+                        .requestMatchers("/api/admin/cleaning-schedules/**")
+                        .hasAnyRole("ADMIN", "SUPER_ADMIN")
 
                         // USER + ADMIN
-                        .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/user/**").hasAnyRole(
+                                        "SUPER_ADMIN",
+                                        "ADMIN",
+                                        "SOCIAL_WORKER",
+                                        "VOLUNTEER",
+                                        "USER")
                                 .requestMatchers(HttpMethod.POST, "/api/children", "/api/children/**")
                                 .hasAnyRole("ADMIN", "SOCIAL_WORKER")
                                 .requestMatchers(HttpMethod.GET, "/api/children", "/api/children/**")
-                                .hasAnyRole("USER", "ADMIN", "SOCIAL_WORKER")
+                                .hasAnyRole("SUPER_ADMIN", "ADMIN", "SOCIAL_WORKER")
 
                                .requestMatchers(HttpMethod.PUT, "/api/children", "/api/children/**")
                                .hasAnyRole("ADMIN", "SOCIAL_WORKER")

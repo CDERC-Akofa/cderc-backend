@@ -1,4 +1,8 @@
 package com.cderc.backend.model;
 
-public class MemberStatus {
+public enum MemberStatus {
+    ACTIVE,
+    INACTIVE,
+    PENDING,
+    CANCELLED
 }

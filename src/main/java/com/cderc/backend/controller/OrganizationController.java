@@ -15,10 +15,10 @@ public class OrganizationController {
     @Autowired
     private OrganizationService organizationService;
 
-    @GetMapping
-    public List<Organization> getAllOrganizations() {
-        return organizationService.getAll();
-    }
+//    @GetMapping
+//    public List<Organization> getAllOrganizations() {
+//        return organizationService.getAll();
+//    }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
