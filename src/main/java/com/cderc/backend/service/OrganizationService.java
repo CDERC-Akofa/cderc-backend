@@ -2,12 +2,13 @@ package com.cderc.backend.service;
 
 import com.cderc.backend.model.Organization;
 import com.cderc.backend.repository.OrganizationRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 @Service
 public class OrganizationService {
 
@@ -18,6 +19,8 @@ public class OrganizationService {
     }
 
     public Organization createOrganization(Organization organization) {
+        log.info("Creating organization {}", organization.getName());
+
         if (organizationRepository.existsByName(organization.getName())) {
             throw new RuntimeException("Organization already exists");
         }

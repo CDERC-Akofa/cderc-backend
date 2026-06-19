@@ -5,9 +5,11 @@ import com.cderc.backend.mapper.MemberMapper;
 import com.cderc.backend.model.Member;
 import com.cderc.backend.model.Organization;
 import com.cderc.backend.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+@Slf4j
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
@@ -17,6 +19,7 @@ public class MemberService {
     }
 
     public Member create(MemberRequest request, Organization organization) {
+        log.info("Creating member for organization {}", organization.getName());
 
         if (request.getEmail() != null &&
                 memberRepository.existsByEmailAndOrganizationId(request.getEmail(), organization.getId())) {

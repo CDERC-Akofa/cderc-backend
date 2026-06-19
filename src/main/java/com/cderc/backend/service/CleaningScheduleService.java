@@ -6,11 +6,13 @@ import com.cderc.backend.model.MemberStatus;
 import com.cderc.backend.model.Organization;
 import com.cderc.backend.repository.CleaningScheduleRepository;
 import com.cderc.backend.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+@Slf4j
 @Service
 public class CleaningScheduleService {
 
@@ -27,6 +29,7 @@ public class CleaningScheduleService {
                                            int numberOfWeeks,
                                            Organization organization) {
 
+        log.info("Generating cleaning schedule from {}", startDate);
         List<Member> members = memberRepository.findByOrganizationIdAndStatus(
                 organization.getId(),
                 MemberStatus.ACTIVE

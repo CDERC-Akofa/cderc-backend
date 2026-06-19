@@ -6,13 +6,14 @@ import com.cderc.backend.model.Role;
 import com.cderc.backend.model.User;
 import com.cderc.backend.repository.UserRepository;
 import com.cderc.backend.security.CustomUserDetails;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Slf4j
 @Service
 public class UserService {
     @Autowired
@@ -25,10 +26,10 @@ public class UserService {
     }
 
     public User createUser(User user) {
+        log.info("Creating user  {}", user.getEmail());
         return userRepository.save(user);
     }
 
-    // Optional: Update, Delete Skeletons später hinzufügen
 
     public List<User> findAll() {
         return userRepository.findAll();

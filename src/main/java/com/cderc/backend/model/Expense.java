@@ -19,6 +19,7 @@ public class Expense {
     private BigDecimal amount;
 
     private LocalDate expenseDate;
+    private String description;
     @ManyToOne
     @JoinColumn(name = "organization_id")
     private Organization organization;

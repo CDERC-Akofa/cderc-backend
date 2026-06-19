@@ -1,5 +1,6 @@
 package com.cderc.backend.controller;
 
+import com.cderc.backend.dto.CleaningScheduleResponse;
 import com.cderc.backend.dto.GenerateCleaningScheduleRequest;
 import com.cderc.backend.model.CleaningSchedule;
 import com.cderc.backend.model.User;
@@ -24,21 +25,27 @@ public class CleaningScheduleController {
     }
 
         @PostMapping("/generate")
-        public List<CleaningSchedule> generate(@RequestBody GenerateCleaningScheduleRequest request,
-            Authentication authentication) {
+        public List<CleaningScheduleResponse> generate(@RequestBody GenerateCleaningScheduleRequest request,
+                                                       Authentication authentication) {
+            User user = userService.findByEmail(authentication.getName());
 
+            return cleaningScheduleService.generate(
+                            request.getStartDate(),
+                            request.getNumberOfWeeks(),
+                            user.getOrganization()
+                    )
+                    .stream()
+                    .map(CleaningScheduleResponse::toResponse)
+                    .toList();
+        }
+
+    @GetMapping
+    public List<CleaningScheduleResponse> getAll(Authentication authentication) {
         User user = userService.findByEmail(authentication.getName());
 
-        return cleaningScheduleService.generate(
-                request.getStartDate(),
-                request.getNumberOfWeeks(),
-                user.getOrganization()
-        );
-    }
-        @GetMapping
-        public List<CleaningSchedule> getAll(Authentication authentication) {
-        User user = userService.findByEmail(authentication.getName());
-
-        return cleaningScheduleService.findAll(user.getOrganization().getId());
+        return cleaningScheduleService.findAll(user.getOrganization().getId())
+                .stream()
+                .map(CleaningScheduleResponse::toResponse)
+                .toList();
     }
 }

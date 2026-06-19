@@ -4,11 +4,12 @@ import com.cderc.backend.model.Child;
 import com.cderc.backend.model.Organization;
 import com.cderc.backend.repository.ChildRepository;
 import com.cderc.backend.repository.OrganizationRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Slf4j
 @Service
 public class ChildService {
 
@@ -26,6 +27,7 @@ public class ChildService {
 
 
     public Child createChild(Child child) {
+        log.info("Creating child  {}", child.getName());
         return childRepository.save(child);
     }
 
@@ -34,13 +36,13 @@ public class ChildService {
     }
 
     public Child findByIdAndOrganizationId(Long id, Long organizationId) {
-        return childRepository.findByIdAndOrganizationId(id, organizationId);
-          //      .orElseThrow(() -> new RuntimeException("Child not found"));
+        return childRepository.findByIdAndOrganizationId(id, organizationId)
+                .orElseThrow(() -> new RuntimeException("Child not found"));
     }
 
     public Child updateChild(Long id, Long organizationId, Child updatedChild) {
-        Child existingChild = childRepository.findByIdAndOrganizationId(id, organizationId);
-           //     .orElseThrow(() -> new RuntimeException("Child not found"));
+        Child existingChild = childRepository.findByIdAndOrganizationId(id, organizationId)
+               .orElseThrow(() -> new RuntimeException("Child not found"));
 
         existingChild.setName(updatedChild.getName());
         existingChild.setBirthDate(updatedChild.getBirthDate());
@@ -54,8 +56,8 @@ public class ChildService {
     }
 
     public void deleteChild(Long id, Long organizationId) {
-        Child child = childRepository.findByIdAndOrganizationId(id, organizationId);
-      //          .orElseThrow(() -> new RuntimeException("Child not found"));
+        Child child = childRepository.findByIdAndOrganizationId(id, organizationId)
+               .orElseThrow(() -> new RuntimeException("Child not found"));
 
         childRepository.delete(child);
     }
