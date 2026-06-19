@@ -2,7 +2,8 @@ package com.cderc.backend.dto;
 
 import java.time.LocalDate;
 
-public class ChildResponse {
+public class
+ChildResponse {
 
     private Long id;
     private String name;
@@ -18,7 +19,8 @@ public class ChildResponse {
         this.id = id;
         this.name = name;
         this.gender = gender;
-        this.birthDate = LocalDate.parse(this.healthStatus = healthStatus);
+        this.birthDate = birthDate;
+        this.healthStatus = healthStatus;
         this.schoolStatus = schoolStatus;
         this.organizationId = organizationId;
     }

@@ -9,6 +9,7 @@ public class ChildMapper {
         child.setGender(request.getGender());
         child.setHealthStatus(request.getHealthStatus());
         child.setSchoolStatus(request.getSchoolStatus());
+        child.setBirthDate(request.getBirthDate());
         return child;
     }
 

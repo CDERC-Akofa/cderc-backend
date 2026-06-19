@@ -38,4 +38,56 @@ public class MemberResponse {
         this.type = type;
         this.organizationId = organizationId;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public LocalDate getJoinedAt() {
+        return joinedAt;
+    }
+
+    public MemberStatus getStatus() {
+        return status;
+    }
+
+    public MemberType getType() {
+        return type;
+    }
+
+    public Long getOrganizationId() {
+        return organizationId;
+    }
 }
