@@ -63,6 +63,8 @@ public class SecurityConfig {
                                .hasAnyRole("ADMIN", "SOCIAL_WORKER")
                                .requestMatchers(HttpMethod.DELETE, "/api/children", "/api/children/**")
                                .hasAnyRole("ADMIN", "SOCIAL_WORKER")
+                               .requestMatchers("/api/admin/events/**")
+                               .hasAnyRole("SUPER_ADMIN", "ADMIN")
 
                         .anyRequest().authenticated() // alles andere geschützt
                 )

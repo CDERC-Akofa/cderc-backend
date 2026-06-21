@@ -2,13 +2,15 @@ package com.cderc.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Data       // erzeugt Getter, Setter, toString, equals, hashCode
+@Data
+@Getter// erzeugt Getter, Setter, toString, equals, hashCode
 public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
