@@ -5,10 +5,11 @@ import com.cderc.backend.mapper.EventMapper;
 import com.cderc.backend.model.Event;
 import com.cderc.backend.model.Organization;
 import com.cderc.backend.repository.EventRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Slf4j
 @Service
 public class EventService {
     private final EventRepository eventRepository;

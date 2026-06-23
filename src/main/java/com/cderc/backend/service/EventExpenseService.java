@@ -8,9 +8,14 @@ import com.cderc.backend.model.EventExpense;
 import com.cderc.backend.model.Organization;
 import com.cderc.backend.repository.EventExpenseRepository;
 import com.cderc.backend.repository.EventRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import java.math.BigDecimal;
-
+@Slf4j
+@Service
 public class EventExpenseService {
     private final EventExpenseRepository eventExpenseRepository;
     private final EventRepository eventRepository;
@@ -24,7 +29,7 @@ public class EventExpenseService {
     public EventExpense create(Long eventId,
                                EventExpenseRequest request,
                                Organization organization) {
-
+        log.info("Creating expense for the event{}", eventId);
         Event event = eventRepository.findByIdAndOrganizationId(eventId, organization.getId())
                 .orElseThrow(() -> new RuntimeException("Event not found"));
 
@@ -50,7 +55,7 @@ public class EventExpenseService {
                                Long eventId,
                                EventExpenseRequest request,
                                Long organizationId) {
-
+        log.info("Updating expense for the event{}", eventId);
         EventExpense expense = findByIdAndEventAndOrganization(expenseId, eventId, organizationId);
         EventExpenseMapper.updateEntity(expense, request);
 
@@ -63,11 +68,12 @@ public class EventExpenseService {
     }
 
     public EventExpenseSummaryResponse getTotalForEvent(Long eventId, Long organizationId) {
+        log.info("getTotalForEvent expense for the event {}", eventId);
         Event event = eventRepository.findByIdAndOrganizationId(eventId, organizationId)
                 .orElseThrow(() -> new RuntimeException("Event not found"));
 
         BigDecimal total = eventExpenseRepository.sumByEventAndOrganization(eventId, organizationId);
-
+        log.info("Total for event expense {}", total);
         return new EventExpenseSummaryResponse(
                 event.getId(),
                 event.getTitle(),
