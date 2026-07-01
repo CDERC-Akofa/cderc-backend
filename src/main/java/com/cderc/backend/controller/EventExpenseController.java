@@ -2,7 +2,7 @@ package com.cderc.backend.controller;
 
 import com.cderc.backend.dto.EventExpenseRequest;
 import com.cderc.backend.dto.EventExpenseResponse;
-import com.cderc.backend.dto.EventExpenseSummaryResponse;
+import com.cderc.backend.dto.EventTotalReportResponse;
 import com.cderc.backend.mapper.EventExpenseMapper;
 import com.cderc.backend.model.EventExpense;
 import com.cderc.backend.model.User;
@@ -99,8 +99,8 @@ public class EventExpenseController {
     }
 
     @GetMapping("/total")
-    public EventExpenseSummaryResponse total(@PathVariable Long eventId,
-                                             Authentication authentication) {
+    public EventTotalReportResponse total(@PathVariable Long eventId,
+                                          Authentication authentication) {
         User user = userService.findByEmail(authentication.getName());
 
         return eventExpenseService.getTotalForEvent(

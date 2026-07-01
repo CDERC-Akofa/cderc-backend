@@ -65,6 +65,8 @@ public class SecurityConfig {
                                .hasAnyRole("ADMIN", "SOCIAL_WORKER")
                                .requestMatchers("/api/admin/events/**")
                                .hasAnyRole("SUPER_ADMIN", "ADMIN")
+                        .requestMatchers("/api/admin/reports/**")
+                        .hasAnyRole("SUPER_ADMIN", "ADMIN")
 
                         .anyRequest().authenticated() // alles andere geschützt
                 )

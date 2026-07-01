@@ -1,7 +1,7 @@
 package com.cderc.backend.service;
 
 import com.cderc.backend.dto.EventExpenseRequest;
-import com.cderc.backend.dto.EventExpenseSummaryResponse;
+import com.cderc.backend.dto.EventTotalReportResponse;
 import com.cderc.backend.mapper.EventExpenseMapper;
 import com.cderc.backend.model.Event;
 import com.cderc.backend.model.EventExpense;
@@ -67,17 +67,18 @@ public class EventExpenseService {
         eventExpenseRepository.delete(expense);
     }
 
-    public EventExpenseSummaryResponse getTotalForEvent(Long eventId, Long organizationId) {
+    public EventTotalReportResponse getTotalForEvent(Long eventId, Long organizationId) {
         log.info("getTotalForEvent expense for the event {}", eventId);
         Event event = eventRepository.findByIdAndOrganizationId(eventId, organizationId)
                 .orElseThrow(() -> new RuntimeException("Event not found"));
 
         BigDecimal total = eventExpenseRepository.sumByEventAndOrganization(eventId, organizationId);
         log.info("Total for event expense {}", total);
-        return new EventExpenseSummaryResponse(
+        return new EventTotalReportResponse(
                 event.getId(),
                 event.getTitle(),
                 total
         );
     }
+
 }

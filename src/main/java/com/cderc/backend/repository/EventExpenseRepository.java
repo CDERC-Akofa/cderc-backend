@@ -25,4 +25,30 @@ public interface EventExpenseRepository extends JpaRepository<EventExpense, Long
            AND e.organization.id = :organizationId
            """)
     BigDecimal sumByEventAndOrganization(Long eventId, Long organizationId);
+
+    @Query("""
+       SELECT e.category, COALESCE(SUM(e.amount), 0)
+       FROM EventExpense e
+       WHERE e.event.id = :eventId
+       AND e.organization.id = :organizationId
+       GROUP BY e.category
+       """)
+    List<Object[]> sumByCategoryForEvent(Long eventId, Long organizationId);
+
+    @Query("""
+       SELECT COALESCE(SUM(e.amount), 0)
+       FROM EventExpense e
+       WHERE e.organization.id = :organizationId
+       AND YEAR(e.expenseDate) = :year
+       """)
+    BigDecimal sumByYear(Long organizationId, int year);
+
+    @Query("""
+       SELECT COALESCE(SUM(e.amount), 0)
+       FROM EventExpense e
+       WHERE e.organization.id = :organizationId
+       """)
+    BigDecimal sumByOrganization(Long organizationId);
+
+
 }
