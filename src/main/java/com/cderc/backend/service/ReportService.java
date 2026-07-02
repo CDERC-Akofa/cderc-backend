@@ -32,7 +32,7 @@ public class ReportService {
     }
 
     public EventTotalReportResponse getEventTotal(Long eventId, Long organizationId) {
-        log.info("getEventTotal {} ", eventId + "-" +organizationId);
+        log.info("getEventTotal {} ", eventId + "-" + organizationId);
         Event event = eventRepository.findByIdAndOrganizationId(eventId, organizationId)
                 .orElseThrow(() -> new RuntimeException("Event not found"));
 
@@ -44,8 +44,9 @@ public class ReportService {
                 total
         );
     }
+
     public List<CategoryReportResponse> getEventCostsByCategory(Long eventId, Long organizationId) {
-        log.info("getEventCostsByCategory {} ", eventId + "-" +organizationId);
+        log.info("getEventCostsByCategory {} ", eventId + "-" + organizationId);
 
         return eventExpenseRepository.sumByCategoryForEvent(eventId, organizationId)
                 .stream()
@@ -57,7 +58,7 @@ public class ReportService {
     }
 
     public YearReportResponse getCostsByYear(int year, Long organizationId) {
-        log.info("getCostsByYear {} ", year + "-" +organizationId);
+        log.info("getCostsByYear {} ", year + "-" + organizationId);
 
         BigDecimal total = eventExpenseRepository.sumByYear(organizationId, year);
         return new YearReportResponse(year, total);
@@ -74,8 +75,9 @@ public class ReportService {
         return eventExpenseRepository.sumByOrganization(organizationId);
     }
 
+    //member reporting start
     public long countActiveMembers(Long organizationId) {
-        log.info("countActiveMembers {} "organizationId);
+        log.info("countActiveMembers {} ", organizationId);
 
         return memberRepository.countByOrganizationIdAndStatus(
                 organizationId,
@@ -89,6 +91,7 @@ public class ReportService {
                 MemberType.SUPPORTING_MEMBER
         );
     }
+
     public List<MemberResponse> findBoardMembers(Long organizationId) {
         return memberRepository.findByOrganizationIdAndType(
                         organizationId,
@@ -118,4 +121,5 @@ public class ReportService {
                 .map(MemberMapper::toResponse)
                 .toList();
 
+    }
 }
