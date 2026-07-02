@@ -2,6 +2,7 @@ package com.cderc.backend.controller;
 
 import com.cderc.backend.dto.CategoryReportResponse;
 import com.cderc.backend.dto.EventTotalReportResponse;
+import com.cderc.backend.dto.MemberResponse;
 import com.cderc.backend.dto.YearReportResponse;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.ReportService;
@@ -28,6 +29,8 @@ public class ReportController {
     public EventTotalReportResponse eventTotal(@PathVariable Long eventId,
                                                Authentication authentication) {
         User user = userService.findByEmail(authentication.getName());
+        System.out.println(" ReportController: USER-MAIL = " + user.getEmail());
+        System.out.println(" ReportController: USER-ORG = " + user.getOrganization());
 
         return reportService.getEventTotal(
                 eventId,
@@ -71,6 +74,48 @@ public class ReportController {
         User user = userService.findByEmail(authentication.getName());
 
         return reportService.getOrganizationTotal(
+                user.getOrganization().getId()
+        );
+    }
+//start member reporting
+@GetMapping("/members/active/count")
+public long activeMembersCount(Authentication authentication) {
+    User user = userService.findByEmail(authentication.getName());
+
+    return reportService.countActiveMembers(
+            user.getOrganization().getId()
+    );
+}
+    @GetMapping("/members/supporting/count")
+    public long supportingMembersCount(Authentication authentication) {
+        User user = userService.findByEmail(authentication.getName());
+
+        return reportService.countSupportingMembers(
+                user.getOrganization().getId()
+        );
+    }
+    @GetMapping("/members/board")
+    public List<MemberResponse> boardMembers(Authentication authentication) {
+        User user = userService.findByEmail(authentication.getName());
+
+        return reportService.findBoardMembers(
+                user.getOrganization().getId()
+        );
+    }
+    @GetMapping("/members/volunteers")
+    public List<MemberResponse> volunteers(Authentication authentication) {
+        User user = userService.findByEmail(authentication.getName());
+
+        return reportService.findVolunteers(
+                user.getOrganization().getId()
+        );
+    }
+
+    @GetMapping("/members/inactive")
+    public List<MemberResponse> inactiveMembers(Authentication authentication) {
+        User user = userService.findByEmail(authentication.getName());
+
+        return reportService.findInactiveMembers(
                 user.getOrganization().getId()
         );
     }
