@@ -1,5 +1,7 @@
 package com.cderc.backend.controller;
 import com.cderc.backend.dto.CreateAdminRequest;
+import com.cderc.backend.dto.UserResponse;
+import com.cderc.backend.mapper.UserMapper;
 import com.cderc.backend.model.Organization;
 import com.cderc.backend.model.Role;
 import com.cderc.backend.model.User;
@@ -24,7 +26,7 @@ public class SuperAdminUserController {
     }
 
     @PostMapping("/admins")
-    public User createAdmin(@RequestBody CreateAdminRequest request) {
+    public UserResponse createAdmin(@RequestBody CreateAdminRequest request) {
 
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email already exists");
@@ -40,6 +42,7 @@ public class SuperAdminUserController {
         admin.setRole(Role.ADMIN);
         admin.setOrganization(organization);
 
-        return userRepository.save(admin);
+        User savedAdmin =  userRepository.save(admin);
+        return UserMapper.toResponse(savedAdmin);
     }
 }

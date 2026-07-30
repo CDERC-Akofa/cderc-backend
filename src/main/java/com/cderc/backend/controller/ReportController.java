@@ -1,16 +1,12 @@
 package com.cderc.backend.controller;
 
-import com.cderc.backend.dto.CategoryReportResponse;
-import com.cderc.backend.dto.EventTotalReportResponse;
-import com.cderc.backend.dto.MemberResponse;
-import com.cderc.backend.dto.YearReportResponse;
+import com.cderc.backend.dto.*;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.ReportService;
 import com.cderc.backend.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -69,12 +65,13 @@ public class ReportController {
                 user.getOrganization().getId()
         );
     }
+
     @GetMapping("/organization/total")
-    public BigDecimal organizationTotal(Authentication authentication) {
+    public OrganizationTotalReportResponse organizationTotal(Authentication authentication) {
         User user = userService.findByEmail(authentication.getName());
 
-        return reportService.getOrganizationTotal(
-                user.getOrganization().getId()
+        return new OrganizationTotalReportResponse(
+                reportService.getOrganizationTotal(user.getOrganization().getId())
         );
     }
 //start member reporting
@@ -110,7 +107,6 @@ public long activeMembersCount(Authentication authentication) {
                 user.getOrganization().getId()
         );
     }
-
     @GetMapping("/members/inactive")
     public List<MemberResponse> inactiveMembers(Authentication authentication) {
         User user = userService.findByEmail(authentication.getName());

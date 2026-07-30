@@ -1,5 +1,7 @@
 package com.cderc.backend.controller;
 import com.cderc.backend.dto.CreateUserRequest;
+import com.cderc.backend.dto.UserResponse;
+import com.cderc.backend.mapper.UserMapper;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.UserService;
 import org.springframework.security.core.Authentication;
@@ -15,8 +17,9 @@ public class AdminUserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody CreateUserRequest request,
-                           Authentication authentication) {
-        return userService.createUserByAdmin(request, authentication);
+    public UserResponse createUser(@RequestBody CreateUserRequest request,
+                                   Authentication authentication) {
+        User user = userService.createUserByAdmin(request, authentication);
+        return UserMapper.toResponse(user);
     }
 }

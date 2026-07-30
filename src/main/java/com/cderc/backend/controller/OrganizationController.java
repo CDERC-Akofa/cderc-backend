@@ -1,5 +1,7 @@
 package com.cderc.backend.controller;
 
+import com.cderc.backend.dto.OrganizationResponse;
+import com.cderc.backend.mapper.OrganizationMapper;
 import com.cderc.backend.model.Organization;
 import com.cderc.backend.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,9 @@ public class OrganizationController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public Organization createOrganization(@RequestBody Organization organization) {
-        return organizationService.createOrganization(organization);
+    public OrganizationResponse createOrganization(@RequestBody Organization organization) {
+        Organization Createdorganization =  organizationService.createOrganization(organization);
+
+        return OrganizationMapper.toResponse(Createdorganization);
     }
 }

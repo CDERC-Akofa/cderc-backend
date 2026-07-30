@@ -1,5 +1,8 @@
 package com.cderc.backend.controller;
 
+import com.cderc.backend.dto.UserResponse;
+import com.cderc.backend.mapper.ChildMapper;
+import com.cderc.backend.mapper.UserMapper;
 import com.cderc.backend.model.Organization;
 import com.cderc.backend.model.User;
 import com.cderc.backend.security.CustomUserDetails;
@@ -19,8 +22,9 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{organizationId}")
-    public List<User> getUsersByOrganization(@PathVariable Long organizationId) {
-        return userService.getAllByOrganization(organizationId);
+    public List<UserResponse> getUsersByOrganization(@PathVariable Long organizationId) {
+        return userService.getAllByOrganization(organizationId).stream().map(UserMapper::toResponse)
+                .toList();
     }
 
     @GetMapping("/profile")
@@ -32,25 +36,28 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public List<User> getAllUsers(Authentication authentication) {
+    public List<UserResponse> getAllUsers(Authentication authentication) {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         Organization org = userDetails.getUser().getOrganization();
 
-        // Alle User der eigenen Organisation zurückgeben
         return userService.findAll().stream()
                 .filter(u -> u.getOrganization().getId().equals(org.getId()))
+                .map(UserMapper::toResponse)
                 .toList();
+
     }
 
     // Nur ADMIN kann User erstellen
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public User createUser(@RequestBody User user, Authentication authentication) {
+    public UserResponse createUser(@RequestBody User user, Authentication authentication) {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         Organization org = userDetails.getUser().getOrganization();
 
         user.setOrganization(org); // User wird automatisch der eigenen Organisation zugeordnet
-        return userService.createUser(user);
+        User newUser = userService.createUser(user);
+
+        return UserMapper.toResponse(newUser);
     }
 
     @GetMapping("/api/user/me")

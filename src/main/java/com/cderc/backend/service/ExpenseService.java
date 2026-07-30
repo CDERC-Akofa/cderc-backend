@@ -10,6 +10,7 @@ import com.cderc.backend.model.User;
 import com.cderc.backend.repository.ChildRepository;
 import com.cderc.backend.repository.ExpenseRepository;
 import com.cderc.backend.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 @Slf4j
 @Service
+@Transactional
 public class ExpenseService {
     private final ExpenseRepository expenseRepository;
     private final ChildRepository childRepository;
@@ -50,11 +52,11 @@ public class ExpenseService {
         log.info("Expense saved with id {}", savedExpense.getId());
         return expenseRepository.save(savedExpense);
     }
-
+//    @Transactional(readOnly = true)
     public List<Expense> findByChildAndOrganization(Long childId, Organization organization){
         return expenseRepository.findByChildIdAndOrganizationId(childId, organization.getId());
     }
-
+//    @Transactional(readOnly = true)
     public Expense findByIdAndChildAndOrganization(Long expenseId,Long childId, Organization organization){
         return expenseRepository.findByIdAndChildIdAndOrganizationId(expenseId,childId, organization.getId())
                 .orElseThrow(() -> new RuntimeException("Expense not found"));

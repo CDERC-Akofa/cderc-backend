@@ -1,6 +1,8 @@
 package com.cderc.backend.controller;
 
 
+import com.cderc.backend.dto.OrganizationResponse;
+import com.cderc.backend.mapper.OrganizationMapper;
 import com.cderc.backend.model.Organization;
 import com.cderc.backend.service.OrganizationService;
 import org.springframework.web.bind.annotation.*;
@@ -17,24 +19,33 @@ public class SuperAdminOrganizationController {
     }
 
     @PostMapping
-    public Organization createOrganization(@RequestBody Organization organization) {
-        return organizationService.createOrganization(organization);
+    public OrganizationResponse createOrganization(@RequestBody Organization organization) {
+        Organization organ = organizationService.createOrganization(organization);
+        return OrganizationMapper.toResponse(organ);
     }
 
     @GetMapping
-    public List<Organization> getAllOrganizations() {
-        return organizationService.findAll();
+    public List<OrganizationResponse> getAllOrganizations() {
+
+        return organizationService.findAll()
+                .stream()
+                .map(OrganizationMapper::toResponse)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public Organization getOrganizationById(@PathVariable Long id) {
-        return organizationService.findById(id);
+    public OrganizationResponse getOrganizationById(@PathVariable Long id) {
+
+        Organization organ = organizationService.findById(id);
+        return OrganizationMapper.toResponse(organ);
     }
 
     @PutMapping("/{id}")
-    public Organization updateOrganization(@PathVariable Long id,
+    public OrganizationResponse  updateOrganization(@PathVariable Long id,
                                            @RequestBody Organization organization) {
-        return organizationService.update(id, organization);
+        Organization organ =organizationService.update(id, organization);
+
+        return OrganizationMapper.toResponse(organ);
     }
 
     @DeleteMapping("/{id}")
