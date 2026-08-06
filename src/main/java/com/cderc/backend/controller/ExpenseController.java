@@ -10,12 +10,17 @@ import com.cderc.backend.model.Member;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.ExpenseService;
 import com.cderc.backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(
+        name = "Event expense",
+        description = "Ausgaben Verwaltung"
+)
 @RestController
 @RequestMapping("/api/children/{childId}/expenses")
 @CrossOrigin
@@ -25,9 +30,6 @@ public class ExpenseController {
     @Autowired
     public UserService userService;
 
-    //
-//    POST
-//    POST /api/children/1/expenses
     @PostMapping
     public ExpenseResponse createExpense(@PathVariable Long childId, @RequestBody ExpenseRequest request, Authentication authentication) {
         System.out.println("*******CREATE EXPENSE 1 *******" + childId);

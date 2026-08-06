@@ -7,11 +7,16 @@ import com.cderc.backend.model.Event;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.EventService;
 import com.cderc.backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(
+        name = "Events",
+        description = "Veranstaltungen"
+)
 @RestController
 @RequestMapping("/api/admin/events")
 public class EventController {

@@ -4,11 +4,16 @@ import com.cderc.backend.dto.*;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.ReportService;
 import com.cderc.backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(
+        name = "Reports",
+        description = "Auswertungen und Statistiken"
+)
 @RestController
 @RequestMapping("/api/admin/reports")
 public class ReportController {

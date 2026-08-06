@@ -6,11 +6,17 @@ import com.cderc.backend.model.CleaningSchedule;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.CleaningScheduleService;
 import com.cderc.backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@Tag(
+        name = "Cleaning schedule",
+        description = "Putz-Plan-Generator durch einen Administrator einer Organisation"
+)
 @RestController
 @RequestMapping("/api/admin/cleaning-schedules")
 public class CleaningScheduleController {

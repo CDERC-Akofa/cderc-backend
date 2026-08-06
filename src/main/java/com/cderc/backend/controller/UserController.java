@@ -7,6 +7,7 @@ import com.cderc.backend.model.Organization;
 import com.cderc.backend.model.User;
 import com.cderc.backend.security.CustomUserDetails;
 import com.cderc.backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -14,10 +15,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(
+        name = "Users",
+        description = "Benutzerverwaltung"
+)
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin
 public class UserController {
+
     @Autowired
     private UserService userService;
 

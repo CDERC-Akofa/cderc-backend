@@ -7,6 +7,8 @@ import com.cderc.backend.model.Role;
 import com.cderc.backend.model.User;
 import com.cderc.backend.repository.OrganizationRepository;
 import com.cderc.backend.repository.UserRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +27,19 @@ public class SuperAdminUserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Operation(
+            summary = "Admin anlegen",
+            description = """
+        Mit diesem Endpunkt legt man ein User/Admin für ein organisation an.
+
+        Testdaten:
+        Email: test@test.com
+        Passwort: Test123!
+
+        Bei erfolgreicher Anmeldung wird ein JWT-Token zurückgegeben.
+        Diesen Token anschließend für alle geschützten Endpunkte verwenden.
+        """
+    )
     @PostMapping("/admins")
     public UserResponse createAdmin(@RequestBody CreateAdminRequest request) {
 

@@ -2,9 +2,6 @@ package com.cderc.backend.auth;
 
 import com.cderc.backend.dto.AuthResponse;
 import com.cderc.backend.dto.LoginRequest;
-import com.cderc.backend.dto.RegisterRequest;
-import com.cderc.backend.model.Organization;
-import com.cderc.backend.model.Role;
 import com.cderc.backend.model.User;
 import com.cderc.backend.repository.OrganizationRepository;
 import com.cderc.backend.repository.UserRepository;

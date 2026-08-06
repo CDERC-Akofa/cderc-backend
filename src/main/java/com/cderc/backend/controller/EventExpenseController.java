@@ -8,12 +8,16 @@ import com.cderc.backend.model.EventExpense;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.EventExpenseService;
 import com.cderc.backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@Tag(
+        name = "Event expense",
+        description = "Veranstaltung Ausgaben Verwaltung"
+)
 @RestController
 @RequestMapping("/api/admin/events/{eventId}/expenses")
 public class EventExpenseController {

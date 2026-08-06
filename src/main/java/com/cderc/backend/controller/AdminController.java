@@ -10,12 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
-//    @Operation(summary = "Admin dashboard", security = @SecurityRequirement(name = "BearerAuth"))
-//    @GetMapping("/dashboard")
-//
-//    public String dashboard() {
-//        return "Admin dashboard";
-//    }
 
     @Operation(summary = "Admin Dashboard", security = @SecurityRequirement(name = "BearerAuth"))
     @PreAuthorize("hasRole('ADMIN')")

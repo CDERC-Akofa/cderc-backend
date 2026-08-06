@@ -7,11 +7,15 @@ import com.cderc.backend.model.Member;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.MemberService;
 import com.cderc.backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Tag(
+        name = "Members",
+        description = "Mitgliederverwaltung"
+)
 @RestController
 @RequestMapping("/api/admin/members")
 public class AdminMemberController {

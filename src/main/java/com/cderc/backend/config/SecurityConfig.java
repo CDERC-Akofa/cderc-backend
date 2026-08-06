@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/login", "/swagger-ui/**", "/v3/api-docs/**").permitAll() // frei für register/login
+                        .requestMatchers("/api/auth/login",  "/swagger-ui.html","/swagger-ui/**", "/v3/api-docs/**").permitAll() // frei für register/login
 
                         .requestMatchers("/api/super-admin/**")
                         .hasRole("SUPER_ADMIN")

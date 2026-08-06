@@ -4,9 +4,14 @@ import com.cderc.backend.dto.UserResponse;
 import com.cderc.backend.mapper.UserMapper;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(
+        name = "Users",
+        description = "Benutzeranlegen"
+)
 @RestController
 @RequestMapping("/api/admin/users")
 public class AdminUserController {

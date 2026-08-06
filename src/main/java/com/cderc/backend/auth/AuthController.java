@@ -2,15 +2,15 @@ package com.cderc.backend.auth;
 
 import com.cderc.backend.dto.AuthResponse;
 import com.cderc.backend.dto.LoginRequest;
-import com.cderc.backend.dto.RegisterRequest;
-import com.cderc.backend.model.User;
-import com.cderc.backend.repository.UserRepository;
-import com.cderc.backend.security.JwtService;
-import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+
+@Tag(
+        name = "Authentication",
+        description = "Super admin Anmeldung"
+)
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -19,12 +19,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-//    @Operation(summary = "Register a new user")
-//    @PostMapping("/register")
-//    public AuthResponse register(@RequestBody RegisterRequest request) {
-//        System.out.println("REGISTER ENDPOINT CALLED");
-//        return authService.register(request);
-//    }
     @PostMapping("/login")
     public AuthResponse login(@RequestBody LoginRequest request) {
         return authService.login(request);

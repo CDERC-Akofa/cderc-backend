@@ -5,10 +5,14 @@ import com.cderc.backend.dto.OrganizationResponse;
 import com.cderc.backend.mapper.OrganizationMapper;
 import com.cderc.backend.model.Organization;
 import com.cderc.backend.service.OrganizationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Tag(
+        name = "Organisation",
+        description = "Organization Verwaltung von einem Superadmin"
+)
 @RestController
 @RequestMapping("/api/super-admin/organizations")
 public class SuperAdminOrganizationController {
