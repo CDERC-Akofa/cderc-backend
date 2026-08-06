@@ -5,6 +5,7 @@ import com.cderc.backend.dto.OrganizationResponse;
 import com.cderc.backend.mapper.OrganizationMapper;
 import com.cderc.backend.model.Organization;
 import com.cderc.backend.service.OrganizationService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
         name = "Organisation",
         description = "Organization Verwaltung von einem Superadmin"
 )
+@SecurityRequirement(name = "BearerAuth")
 @RestController
 @RequestMapping("/api/super-admin/organizations")
 public class SuperAdminOrganizationController {

@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+@SecurityRequirement(name = "BearerAuth")
 @RestController
 @RequestMapping("/api/super-admin/users")
 public class SuperAdminUserController {
