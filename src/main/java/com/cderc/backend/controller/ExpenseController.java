@@ -10,6 +10,7 @@ import com.cderc.backend.model.Member;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.ExpenseService;
 import com.cderc.backend.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,7 @@ import java.util.List;
         name = "Event expense",
         description = "Ausgaben Verwaltung"
 )
+@SecurityRequirement(name = "BearerAuth")
 @RestController
 @RequestMapping("/api/children/{childId}/expenses")
 @CrossOrigin

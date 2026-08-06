@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(
         name = "Authentication",
-        description = "Super admin Anmeldung"
+        description = "Anmeldung ( Super admin, Admin, Benutzer ..."
 )
 @RestController
 @RequestMapping("/api/auth")

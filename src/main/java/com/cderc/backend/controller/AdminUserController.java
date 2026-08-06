@@ -4,6 +4,7 @@ import com.cderc.backend.dto.UserResponse;
 import com.cderc.backend.mapper.UserMapper;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
         name = "Users",
         description = "Benutzeranlegen"
 )
+@SecurityRequirement(name = "BearerAuth")
 @RestController
 @RequestMapping("/api/admin/users")
 public class AdminUserController {

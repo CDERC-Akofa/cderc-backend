@@ -7,6 +7,7 @@ import com.cderc.backend.model.Organization;
 import com.cderc.backend.model.User;
 import com.cderc.backend.security.CustomUserDetails;
 import com.cderc.backend.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +20,7 @@ import java.util.List;
         name = "Users",
         description = "Benutzerverwaltung"
 )
+@SecurityRequirement(name = "BearerAuth")
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin

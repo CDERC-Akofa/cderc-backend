@@ -8,6 +8,7 @@ import com.cderc.backend.model.EventExpense;
 import com.cderc.backend.model.User;
 import com.cderc.backend.service.EventExpenseService;
 import com.cderc.backend.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.List;
         name = "Event expense",
         description = "Veranstaltung Ausgaben Verwaltung"
 )
+@SecurityRequirement(name = "BearerAuth")
 @RestController
 @RequestMapping("/api/admin/events/{eventId}/expenses")
 public class EventExpenseController {
