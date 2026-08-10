@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @SecurityRequirement(name = "BearerAuth")
 @RestController
-@RequestMapping("/api/super-admin/users")
+@RequestMapping("/api/super-admin")
 public class SuperAdminUserController {
     private final UserRepository userRepository;
     private final OrganizationRepository organizationRepository;

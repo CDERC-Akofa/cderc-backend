@@ -4,7 +4,6 @@ public class CreateAdminRequest {
     private String name;
     private String email;
     private String password;
-    private Long organizationId;
 
     public String getName() {
         return name;
@@ -18,7 +17,4 @@ public class CreateAdminRequest {
         return password;
     }
 
-    public Long getOrganizationId() {
-        return organizationId;
-    }
 }
