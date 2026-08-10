@@ -41,14 +41,39 @@ public class SuperAdminUserController {
         Diesen Token anschließend für alle geschützten Endpunkte verwenden.
         """
     )
-    @PostMapping("/admins")
-    public UserResponse createAdmin(@RequestBody CreateAdminRequest request) {
+//    @PostMapping("/admins")
+//    public UserResponse createAdmin(@RequestBody CreateAdminRequest request) {
+//
+//        if (userRepository.existsByEmail(request.getEmail())) {
+//            throw new RuntimeException("Email already exists");
+//        }
+//
+//        Organization organization = organizationRepository.findById(request.getOrganizationId())
+//                .orElseThrow(() -> new RuntimeException("Organization not found"));
+//
+//        User admin = new User();
+//        admin.setName(request.getName());
+//        admin.setEmail(request.getEmail());
+//        admin.setPassword(passwordEncoder.encode(request.getPassword()));
+//        admin.setRole(Role.ADMIN);
+//        admin.setOrganization(organization);
+//
+//        User savedAdmin =  userRepository.save(admin);
+//        return UserMapper.toResponse(savedAdmin);
+//    }
+
+
+    @PostMapping("/organizations/{organizationId}/admins")
+    public UserResponse createAdmin(
+            @PathVariable Long organizationId,
+            @RequestBody CreateAdminRequest request) {
 
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
 
-        Organization organization = organizationRepository.findById(request.getOrganizationId())
+        Organization organization = organizationRepository
+                .findById(organizationId)
                 .orElseThrow(() -> new RuntimeException("Organization not found"));
 
         User admin = new User();
@@ -58,7 +83,8 @@ public class SuperAdminUserController {
         admin.setRole(Role.ADMIN);
         admin.setOrganization(organization);
 
-        User savedAdmin =  userRepository.save(admin);
+        User savedAdmin = userRepository.save(admin);
+
         return UserMapper.toResponse(savedAdmin);
     }
 }
