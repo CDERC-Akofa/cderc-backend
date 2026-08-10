@@ -6,6 +6,7 @@ import com.cderc.backend.model.Role;
 import com.cderc.backend.model.User;
 import com.cderc.backend.repository.UserRepository;
 import com.cderc.backend.security.CustomUserDetails;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -25,10 +26,11 @@ public class UserService {
         return userRepository.findAllByOrganizationId(organizationId);
     }
 
-    public User createUser(User user) {
-        log.info("Creating user  {}", user.getEmail());
-        return userRepository.save(user);
-    }
+//    public User createUser(User user) {
+//        log.info("Creating user  {}", user.getEmail());
+//        return userRepository.save(user);
+//    }
+
 
 
     public List<User> findAll() {
@@ -53,6 +55,8 @@ public class UserService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
+    @Transactional
     public User createUserByAdmin(CreateUserRequest request, Authentication authentication) {
 
         String adminEmail = authentication.getName();

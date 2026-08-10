@@ -1,5 +1,6 @@
 package com.cderc.backend.controller;
 
+import com.cderc.backend.dto.CreateUserRequest;
 import com.cderc.backend.dto.UserResponse;
 import com.cderc.backend.mapper.ChildMapper;
 import com.cderc.backend.mapper.UserMapper;
@@ -55,19 +56,32 @@ public class UserController {
 
     }
 
-    // Nur ADMIN kann User erstellen
+//    // Nur ADMIN kann User erstellen
+//    @PostMapping
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public UserResponse createUser(@RequestBody User user, Authentication authentication) {
+//        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+//        Organization org = userDetails.getUser().getOrganization();
+//
+//        user.setOrganization(org); // User wird automatisch der eigenen Organisation zugeordnet
+//        User newUser = userService.createUser(user);
+//
+//        return UserMapper.toResponse(newUser);
+//    }
+
+
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public UserResponse createUser(@RequestBody User user, Authentication authentication) {
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        Organization org = userDetails.getUser().getOrganization();
+    public UserResponse createUser(
+            @RequestBody CreateUserRequest request,
+            Authentication authentication) {
 
-        user.setOrganization(org); // User wird automatisch der eigenen Organisation zugeordnet
-        User newUser = userService.createUser(user);
+        User savedUser = userService.createUserByAdmin(
+                request,
+                authentication
+        );
 
-        return UserMapper.toResponse(newUser);
+        return UserMapper.toResponse(savedUser);
     }
-
     @GetMapping("/api/user/me")
     public String me(Authentication authentication) {
         return "name=" + authentication.getName() + ", authorities=" + authentication.getAuthorities();
