@@ -51,6 +51,7 @@ public class UserService {
     public User update(Long id, CreateUserRequest request, Authentication authentication) {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         Organization org = userDetails.getUser().getOrganization();
+        String email = normalizeEmail(request.getEmail());
 
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -64,12 +65,12 @@ public class UserService {
         if (user.getRole() == Role.SUPER_ADMIN || user.getRole() == Role.ADMIN) {
             throw new RuntimeException("Admin cannot update SUPER_ADMIN or ADMIN");
         }
-        if (userRepository.existsByEmailAndIdNot(request.getEmail(), id)) {
+        if (userRepository.existsByEmailAndIdNot(email, id)) {
             throw new RuntimeException("Email already exists");
         }
 
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
+        user.setName(request.getName().trim());
+        user.setEmail(email);
         user.setRole(request.getRole());
         if (request.getPassword() != null && !request.getPassword().isBlank()) {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -87,8 +88,9 @@ public class UserService {
     public User createUserByAdmin(CreateUserRequest request, Authentication authentication) {
         String adminEmail = authentication.getName();
         User admin = findByEmail(adminEmail);
+        String email = normalizeEmail(request.getEmail());
 
-        if (userRepository.existsByEmail(request.getEmail())) {
+        if (userRepository.existsByEmail(email)) {
             throw new RuntimeException("Email already exists");
         }
 
@@ -97,12 +99,16 @@ public class UserService {
         }
 
         User user = new User();
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
+        user.setName(request.getName().trim());
+        user.setEmail(email);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(request.getRole());
         user.setOrganization(admin.getOrganization());
 
         return userRepository.save(user);
+    }
+
+    private String normalizeEmail(String email) {
+        return email == null ? null : email.trim().toLowerCase();
     }
 }

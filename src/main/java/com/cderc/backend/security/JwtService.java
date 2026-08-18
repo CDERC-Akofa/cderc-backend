@@ -2,6 +2,7 @@ package com.cderc.backend.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.cderc.backend.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,21 @@ public class JwtService {
 
         return JWT.create()
                 .withSubject(email)
+                .withIssuedAt(new Date())
+                .withExpiresAt(new Date(System.currentTimeMillis() + 86400000))
+                .sign(Algorithm.HMAC256(secret));
+    }
+
+    public String generateToken(User user) {
+        Long organizationId = user.getOrganization() != null ? user.getOrganization().getId() : null;
+
+        return JWT.create()
+                .withSubject(user.getEmail())
+                .withClaim("email", user.getEmail())
+                .withClaim("name", user.getName())
+                .withClaim("role", user.getRole().name())
+                .withClaim("userId", user.getId())
+                .withClaim("organizationId", organizationId)
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 86400000))
                 .sign(Algorithm.HMAC256(secret));

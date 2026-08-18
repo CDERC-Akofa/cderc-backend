@@ -67,8 +67,9 @@ public class SuperAdminUserController {
     public UserResponse createAdmin(
             @PathVariable Long organizationId,
             @RequestBody CreateAdminRequest request) {
+        String email = normalizeEmail(request.getEmail());
 
-        if (userRepository.existsByEmail(request.getEmail())) {
+        if (userRepository.existsByEmail(email)) {
             throw new RuntimeException("Email already exists");
         }
 
@@ -77,8 +78,8 @@ public class SuperAdminUserController {
                 .orElseThrow(() -> new RuntimeException("Organization not found"));
 
         User admin = new User();
-        admin.setName(request.getName());
-        admin.setEmail(request.getEmail());
+        admin.setName(request.getName().trim());
+        admin.setEmail(email);
         admin.setPassword(passwordEncoder.encode(request.getPassword()));
         admin.setRole(Role.ADMIN);
         admin.setOrganization(organization);
@@ -93,6 +94,7 @@ public class SuperAdminUserController {
             @PathVariable Long organizationId,
             @PathVariable Long adminId,
             @RequestBody CreateAdminRequest request) {
+        String email = normalizeEmail(request.getEmail());
 
         Organization organization = organizationRepository
                 .findById(organizationId)
@@ -107,12 +109,12 @@ public class SuperAdminUserController {
         if (admin.getOrganization() == null || !admin.getOrganization().getId().equals(organization.getId())) {
             throw new RuntimeException("Admin does not belong to this organization");
         }
-        if (userRepository.existsByEmailAndIdNot(request.getEmail(), adminId)) {
+        if (userRepository.existsByEmailAndIdNot(email, adminId)) {
             throw new RuntimeException("Email already exists");
         }
 
-        admin.setName(request.getName());
-        admin.setEmail(request.getEmail());
+        admin.setName(request.getName().trim());
+        admin.setEmail(email);
         if (request.getPassword() != null && !request.getPassword().isBlank()) {
             admin.setPassword(passwordEncoder.encode(request.getPassword()));
         }
@@ -137,5 +139,9 @@ public class SuperAdminUserController {
         }
 
         userRepository.delete(admin);
+    }
+
+    private String normalizeEmail(String email) {
+        return email == null ? null : email.trim().toLowerCase();
     }
 }
