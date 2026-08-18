@@ -40,6 +40,8 @@ public class SecurityConfig {
 
                         .requestMatchers("/api/super-admin/**")
                         .hasRole("SUPER_ADMIN")
+                        .requestMatchers("/api/admin/users/**")
+                        .hasRole("ADMIN")
                         .requestMatchers("/api/admin/**")
                         .hasAnyRole("SUPER_ADMIN", "ADMIN")
                         .requestMatchers("/api/admin/members/**")

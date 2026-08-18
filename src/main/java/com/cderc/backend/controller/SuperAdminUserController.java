@@ -87,4 +87,55 @@ public class SuperAdminUserController {
 
         return UserMapper.toResponse(savedAdmin);
     }
+
+    @PutMapping("/organizations/{organizationId}/admins/{adminId}")
+    public UserResponse updateAdmin(
+            @PathVariable Long organizationId,
+            @PathVariable Long adminId,
+            @RequestBody CreateAdminRequest request) {
+
+        Organization organization = organizationRepository
+                .findById(organizationId)
+                .orElseThrow(() -> new RuntimeException("Organization not found"));
+
+        User admin = userRepository.findById(adminId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (admin.getRole() != Role.ADMIN) {
+            throw new RuntimeException("Only organization admins can be updated here");
+        }
+        if (admin.getOrganization() == null || !admin.getOrganization().getId().equals(organization.getId())) {
+            throw new RuntimeException("Admin does not belong to this organization");
+        }
+        if (userRepository.existsByEmailAndIdNot(request.getEmail(), adminId)) {
+            throw new RuntimeException("Email already exists");
+        }
+
+        admin.setName(request.getName());
+        admin.setEmail(request.getEmail());
+        if (request.getPassword() != null && !request.getPassword().isBlank()) {
+            admin.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+
+        User savedAdmin = userRepository.save(admin);
+        return UserMapper.toResponse(savedAdmin);
+    }
+
+    @DeleteMapping("/organizations/{organizationId}/admins/{adminId}")
+    public void deleteAdmin(
+            @PathVariable Long organizationId,
+            @PathVariable Long adminId) {
+
+        User admin = userRepository.findById(adminId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (admin.getRole() != Role.ADMIN) {
+            throw new RuntimeException("Only organization admins can be deleted here");
+        }
+        if (admin.getOrganization() == null || !admin.getOrganization().getId().equals(organizationId)) {
+            throw new RuntimeException("Admin does not belong to this organization");
+        }
+
+        userRepository.delete(admin);
+    }
 }

@@ -29,4 +29,18 @@ public class AdminUserController {
         User user = userService.createUserByAdmin(request, authentication);
         return UserMapper.toResponse(user);
     }
+
+    @PutMapping("/{id}")
+    public UserResponse updateUser(@PathVariable Long id,
+                                   @RequestBody CreateUserRequest request,
+                                   Authentication authentication) {
+        User user = userService.update(id, request, authentication);
+        return UserMapper.toResponse(user);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id,
+                           Authentication authentication) {
+        userService.delete(id, authentication);
+    }
 }
