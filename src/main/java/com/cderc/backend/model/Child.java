@@ -19,7 +19,6 @@ public class Child {
     private String gender;
     private String healthStatus;
 
-    @Enumerated(EnumType.STRING)
     private SchoolStatus schoolStatus;
     private String schoolClass;
     private String vocationalTrainingType;
