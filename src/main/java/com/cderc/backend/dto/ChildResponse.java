@@ -1,38 +1,56 @@
 package com.cderc.backend.dto;
 
+import com.cderc.backend.model.SchoolStatus;
+
 import java.time.LocalDate;
 
 public class
 ChildResponse {
 
     private Long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String gender;
     private String healthStatus;
-    private String schoolStatus;
     private Long organizationId;
     private LocalDate birthDate;
+    private Integer age;
+    private final SchoolStatus schoolStatus;
+    private final String schoolClass;
+    private final String vocationalTrainingType;
 
-    public ChildResponse(Long id, String name, String gender,LocalDate birthDate,
-                         String healthStatus, String schoolStatus,
-                         Long organizationId) {
+    public ChildResponse(Long id, String firstName, String lastName, String gender,LocalDate birthDate,
+                         Integer age, String healthStatus,
+                         Long organizationId, SchoolStatus schoolStatus,
+                         String schoolClass,
+                         String vocationalTrainingType) {
         this.id = id;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.gender = gender;
         this.birthDate = birthDate;
+        this.age = age;
         this.healthStatus = healthStatus;
-        this.schoolStatus = schoolStatus;
         this.organizationId = organizationId;
+        this.schoolStatus = schoolStatus;
+        this.schoolClass = schoolClass;
+        this.vocationalTrainingType = vocationalTrainingType;
+
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
-
+    public String getFirstName() {
+        return firstName;
+    }
+    public Integer getAge(){
+        return age;
+    }
     public String getGender() {
         return gender;
     }
@@ -45,7 +63,7 @@ ChildResponse {
         return healthStatus;
     }
 
-    public String getSchoolStatus() {
+    public SchoolStatus getSchoolStatus() {
         return schoolStatus;
     }
 

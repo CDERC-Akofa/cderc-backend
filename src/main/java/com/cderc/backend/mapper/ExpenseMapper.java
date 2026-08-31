@@ -28,7 +28,7 @@ public class ExpenseMapper {
                 expense.getCategory(),
                 expense.getDescription(),
                 expense.getChild().getId(),
-                expense.getChild().getName()
+                expense.getChild().getFirstName()
         );
     }
 

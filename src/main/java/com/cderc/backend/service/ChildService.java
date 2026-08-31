@@ -27,7 +27,7 @@ public class ChildService {
 
 
     public Child createChild(Child child) {
-        log.info("Creating child  {}", child.getName());
+        log.info("Creating child  {}", child.getFirstName());
         return childRepository.save(child);
     }
 
@@ -44,7 +44,13 @@ public class ChildService {
         Child existingChild = childRepository.findByIdAndOrganizationId(id, organizationId)
                .orElseThrow(() -> new RuntimeException("Child not found"));
 
-        existingChild.setName(updatedChild.getName());
+        existingChild.setFirstName(updatedChild.getFirstName());
+        existingChild.setLastName(updatedChild.getLastName());
+
+        existingChild.setSchoolStatus(updatedChild.getSchoolStatus());
+        existingChild.setSchoolClass(updatedChild.getSchoolClass());
+        existingChild.setVocationalTrainingType(updatedChild.getVocationalTrainingType());
+
         existingChild.setBirthDate(updatedChild.getBirthDate());
         existingChild.setGender(updatedChild.getGender());
         existingChild.setHealthStatus(updatedChild.getHealthStatus());

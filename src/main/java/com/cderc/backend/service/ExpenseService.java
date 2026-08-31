@@ -105,7 +105,7 @@ public class ExpenseService {
         log.info("Expense summary for child {}", childId + "-" + total);
         return new ChildExpenseSummaryResponse(
                 child.getId(),
-                child.getName(),
+                child.getFirstName(),
                 total
         );
     }

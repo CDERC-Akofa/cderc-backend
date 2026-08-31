@@ -1,22 +1,30 @@
 package com.cderc.backend.dto;
 
+import com.cderc.backend.model.SchoolStatus;
+
 import java.time.LocalDate;
 
 public class ChildRequest {
-    private String name;
+    private String firstName;
+    private String lastName;
     private String gender;
     private String healthStatus;
-    private String schoolStatus;
     private LocalDate birthDate;
+
+    private SchoolStatus schoolStatus;
+    private String schoolClass;
+    private String vocationalTrainingType;
 
     public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
-
+    public String getFirstName() {
+        return firstName;
+    }
     public String getGender() {
         return gender;
     }
@@ -25,7 +33,15 @@ public class ChildRequest {
         return healthStatus;
     }
 
-    public String getSchoolStatus() {
+    public SchoolStatus getSchoolStatus() {
         return schoolStatus;
+    }
+
+    public String getSchoolClass() {
+        return schoolClass;
+    }
+
+    public String getVocationalTrainingType() {
+        return vocationalTrainingType;
     }
 }

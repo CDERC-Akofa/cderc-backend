@@ -13,11 +13,16 @@ public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private LocalDate birthDate;
     private String gender;
     private String healthStatus;
-    private String schoolStatus;
+
+    @Enumerated(EnumType.STRING)
+    private SchoolStatus schoolStatus;
+    private String schoolClass;
+    private String vocationalTrainingType;
 
     @ManyToOne
     @JoinColumn(name = "organization_id")
