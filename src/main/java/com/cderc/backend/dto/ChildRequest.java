@@ -15,6 +15,38 @@ public class ChildRequest {
     private String schoolClass;
     private String vocationalTrainingType;
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setHealthStatus(String healthStatus) {
+        this.healthStatus = healthStatus;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setSchoolStatus(SchoolStatus schoolStatus) {
+        this.schoolStatus = schoolStatus;
+    }
+
+    public void setSchoolClass(String schoolClass) {
+        this.schoolClass = schoolClass;
+    }
+
+    public void setVocationalTrainingType(String vocationalTrainingType) {
+        this.vocationalTrainingType = vocationalTrainingType;
+    }
+
     public LocalDate getBirthDate() {
         return birthDate;
     }

@@ -31,6 +31,10 @@ public class ChildService {
         return childRepository.save(child);
     }
 
+    public List<Child> findAll() {
+        return childRepository.findAll();
+    }
+
     public List<Child> findByOrganizationId(Long organizationId) {
         return childRepository.findAllByOrganizationId(organizationId);
     }
