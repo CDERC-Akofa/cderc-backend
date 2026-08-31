@@ -67,6 +67,13 @@ ChildResponse {
         return schoolStatus;
     }
 
+    public String getSchoolClass(){
+        return schoolClass;
+    }
+    public String getVocationalTrainingType() {
+        return vocationalTrainingType;
+    }
+
     public Long getOrganizationId() {
         return organizationId;
     }

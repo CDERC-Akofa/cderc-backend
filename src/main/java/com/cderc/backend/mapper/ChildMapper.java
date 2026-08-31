@@ -7,8 +7,8 @@ import java.time.Period;
 public class ChildMapper {
     public static Child toEntity(ChildRequest request) {
         Child child = new Child();
-        child.setFirstName(child.getFirstName());
-        child.setLastName(child.getLastName());
+        child.setFirstName(request.getFirstName());
+        child.setLastName(request.getLastName());
         child.setGender(request.getGender());
         child.setHealthStatus(request.getHealthStatus());
         child.setSchoolStatus(request.getSchoolStatus());
